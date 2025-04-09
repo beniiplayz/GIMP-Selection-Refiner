@@ -1,1 +1,10 @@
-
+SELECTION_REFINER="https://raw.githubusercontent.com/manu12121999/GIMP-Selection-Refiner/main/selection_refiner.py"
+SAM_INFERENCE="https://raw.githubusercontent.com/manu12121999/GIMP-Selection-Refiner/main/sam_inference.py"
+TORCH_INDEX_URL="https://download.pytorch.org/whl/cpu"
+PREFIXED_SAM_V1="git+https://github.com/facebookresearch/segment-anything.git"
+SAM_V1_BASE="https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"
+SAM_V1_LARGE="https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth"
+SAM_V1_HUGE="https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth"
+SAM_V2_SMALL="https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_small.pt"
+SAM_V2_BASE="https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_base_plus.pt"
+SAM_V2_LARGE="https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_large.pt"
