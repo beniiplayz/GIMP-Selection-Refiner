@@ -6,13 +6,13 @@ pause() {
 
 quit() {
     read -rp "Press Enter to exit..."
+    exit 1
 }
 
 check_python() {
     if ! command -v python3 2>&1 >/dev/null; then
         echo "Python is not installed. Please install it and rerun this script."
         quit
-        exit 1
     fi
 }
 
@@ -21,7 +21,6 @@ find_plugin_dir() {
     if [ -z "$PLUGIN_DIR" ]; then
         echo "GIMP plugins directory not found. Please ensure GIMP is installed and run once."
         quit
-        exit 1
     fi
     echo "GIMP plugin directory found: $PLUGIN_DIR"
     pause
