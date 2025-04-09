@@ -1,66 +1,82 @@
-# GIMP-Selection-Refiner
-GIMP Plugin to refine a selection using the neural network segment-anything2
+# GIMP Selection Refiner
+
+A GIMP plugin that uses Meta's Segment Anything Model (SAM) to refine selections.
 
 ![Image](https://github.com/user-attachments/assets/5cd938df-5dc3-40b1-87e2-4649a9401c07)
 
+## Features
 
-## Made for Gimp 3.0.
+- Refine selections using Meta's Segment Anything Model (SAM)
+- Support for both SAM v1 and SAM v2
+- CPU and GPU support
+- Multiple model size options
+- Simple installation process
 
-## Installation:
+## Requirements
 
-### Linux:
+- GIMP 3.0 (or later)
+- Python 3
+- Internet connection for downloading dependencies and models
 
-1. Install python
+## Installation
 
-2. Rename the folder to `selection_refiner` and place it in your Gimp Plugins directory.
-  To find it, go inside GIMP to `Edit`->`Preferences`->`Folders`->`Plugins`. The folder must be named `selection_refiner`!!!
+### For Users
 
+1. Download and run the installation script:
+   ```bash
+   wget https://raw.githubusercontent.com/beniiplayz/GIMP-Selection-Refiner/main/install.sh && chmod +x install.sh && ./install.sh
+   ```
 
-3. make the python file executable, install dependencies and download model files with: 
+   The script will:
+   - Check for Python installation
+   - Locate your GIMP plugins directory
+   - Download and install the plugin files
+   - Set up a Python virtual environment
+   - Install required dependencies
+   - Let you choose between CPU and GPU installation
+   - Let you select SAM version (v1 or v2)
+   - Download your chosen model
 
-```
-bash ./setup.sh
-```
+2. Restart GIMP
 
-### Windows:
+### For Developers
 
-1. Install python
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/beniiplayz/GIMP-Selection-Refiner.git
+   cd GIMP-Selection-Refiner
+   ```
 
-2. Rename the folder to `selection_refiner` and place it in your Gimp Plugins directory.
-  To find it, go inside GIMP to `Edit`->`Preferences`->`Folders`->`Plugins`. The folder must be named `selection_refiner`!!!
+2. You can use either the installation script or Makefile:
 
+   Using the installation script:
+   ```bash
+   ./install.sh
+   ```
 
-3. install dependencies and download model files by double clicking
+   Using Makefile:
+   ```bash
+   # Standard installation
+   make install
 
-```
-setup.bat
-```
- 
+   # Installation using uv (faster)
+   make install-uv
+   ```
 
+## Usage
 
-## Usage:
-1. Select the item roughly (make sure the entire object is in the selection)
-2. In the top bar, go to
-    `Select` -> `Refine Selection using SAM`
+1. Make a selection in GIMP (use Lasso for better results)
+2. Go to `Select > Refine Selection using SAM`
+3. The plugin will use AI to refine your selection
 
+## Models
 
-## Notes:
-There are 4 different segment-anything-2 models, [`tiny`, `small`, `base`, `large`]. At the moment, `base` is used. If you want better quality or better speed, another one can be used. For this, uncomment the corresponding wget line in `setup.sh` 
-e.g. 
-```
-#wget https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_large.pt
-```
-to 
-```
-wget https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_large.pt
-```
+### SAM v1 Options
+- Base (default)
+- Large
+- Huge
 
-
-and change line 28 in `selection_refiner.py` from 
-```
-SAM_SIZE = "base"
-```
-to e.g.  
-```
-SAM_SIZE = "large"
-```
+### SAM v2 Options
+- Hiera Small
+- Hiera Base Plus (default)
+- Hiera Large
