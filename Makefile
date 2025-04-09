@@ -1,23 +1,22 @@
 cat:
 	cat Makefile
 
-pip:
-	bash ./setup.sh
+install:
+	bash ./install.sh
 
-clean_pip:
-	rm -fr ./gimpenv
-	rm -f ./sam2.1_hiera_base_plus.pt
+install_uv:
+	bash ./install-uv.sh
 
-uv:
-	bash ./setup_uv.sh
+clean_plugin:
+	rm -rf ./gimpenv
+	rm -f ./selection_refiner.py
+	rm -f ./sam*
 
-clean_uv:
-	rm -fr ./.git ./.venv
-	rm -f ./gimpenv
-	rm -f ./.gitignore
-	rm -f ./.python-version
+clean:
 	rm -f ./README.md
-	rm -f ./main.py
-	rm -f ./pyproject.toml
-	rm -f ./sam2.1_hiera_base_plus.pt
-	rm -f ./uv.lock
+	rm -f ./install.sh
+	rm -f ./install-uv.sh
+	rm -f ./sam_inference.py
+	rm -f ./selection_refiner.py
+	rm -f ./urls.sh
+	rm -f ./Makefile
