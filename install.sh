@@ -36,8 +36,8 @@ prepare_plugin_folder() {
 
 download_plugin_files() {
     echo "Downloading required plugin files..."
-    wget -O selection_refiner.py https://raw.githubusercontent.com/manu12121999/GIMP-Selection-Refiner/main/selection_refiner.py
-    wget -O sam_inference.py https://raw.githubusercontent.com/manu12121999/GIMP-Selection-Refiner/main/sam_inference.py
+    wget -O selection_refiner.py "$SELECTION_REFINER"
+    wget -O sam_inference.py "$SAM_INFERENCE"
     echo "Plugin scripts downloaded."
 }
 
@@ -72,14 +72,14 @@ install_dependencies() {
 
     echo "Installing torch and torchvision..."
     if [[ "$DEVICE" == "cpu" ]]; then
-        python3 -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+        python3 -m pip install torch torchvision --index-url "$TORCH_INDEX_URL"
     else
         python3 -m pip install torch torchvision
     fi
 
     if [[ "$SAM_VERSION" == "1" ]]; then
         echo "Installing SAM v1..."
-        python3 -m pip install git+https://github.com/facebookresearch/segment-anything.git
+        python3 -m pip install "$PREFIXED_SAM_V1"
     else
         echo "Installing SAM v2..."
         python3 -m pip install sam2
@@ -99,13 +99,13 @@ prompt_model_download() {
         read -p "Enter your choice [1-3] (default: 1): " MODEL_CHOICE
         case $MODEL_CHOICE in
             2)
-                wget https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth
+                wget "$SAM_V1_LARGE"
                 ;;
             3)
-                wget https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
+                wget "$SAM_V1_HUGE"
                 ;;
             *)
-                wget https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
+                wget "$SAM_V1_BASE"
                 ;;
         esac
     else
@@ -115,13 +115,13 @@ prompt_model_download() {
         read -p "Enter your choice [1-3] (default: 2): " MODEL_CHOICE
         case $MODEL_CHOICE in
             1)
-                wget https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_small.pt
+                wget "$SAM_V2_SMALL"
                 ;;
             3)
-                wget https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_large.pt
+                wget "$SAM_V2_LARGE"
                 ;;
             *)
-                wget https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_base_plus.pt
+                wget "$SAM_V2_BASE"
                 ;;
         esac
     fi
@@ -130,6 +130,8 @@ prompt_model_download() {
 
 echo "Starting GIMP Selection Refiner installation..."
 pause
+
+source ./urls.sh
 
 check_python
 find_plugin_dir
