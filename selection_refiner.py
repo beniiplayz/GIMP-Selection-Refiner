@@ -33,33 +33,39 @@ if current_platform != "windows":
     import numpy as np
     import torch
     from PIL import Image
+    
+    sam2_models = {
+        "large": "sam2.1_hiera_large.pt",
+        "base": "sam2.1_hiera_base_plus.pt",
+        "small": "sam2.1_hiera_small.pt"
+    }
 
-    SAM_VERSION = 2
-    SAM_SIZE = "large" # i don't know why is this hardcoded???
+    if not any(exists(join(baseLoc, model)) for model in sam2_models.values()):
+        SAM_VERSION = 1
+        sam1_models = {
+            "huge": "sam_vit_h_4b8939.pth",
+            "large": "sam_vit_l_0b3195.pth",
+            "base": "sam_vit_b_01ec64.pth"
+        }
+        for size in ["huge", "large", "base"]:
+            if exists(join(baseLoc, sam1_models[size])):
+                SAM_SIZE = size
+                break
+    else:
+        SAM_VERSION = 2
+        for size in ["large", "base", "small"]:
+            if exists(join(baseLoc, sam2_models[size])):
+                SAM_SIZE = size
+                break
 
     if SAM_VERSION == 1:
         from segment_anything import SamPredictor, sam_model_registry
+        sam_checkpoint = join(baseLoc, sam1_models[SAM_SIZE])
     elif SAM_VERSION == 2:
         from sam2.build_sam import build_sam2
         from sam2.sam2_image_predictor import SAM2ImagePredictor
-
-
-    # set checkpoint
-    if SAM_VERSION == 1:
-        sam_checkpoint = join(baseLoc, "sam_vit_l_0b3195.pth")
-    elif SAM_VERSION == 2:
-        if SAM_SIZE == "small":
-            sam_cfg = "configs/sam2.1/sam2.1_hiera_s.yaml"
-            sam_checkpoint = join(baseLoc, "sam2.1_hiera_small.pt")
-        elif SAM_SIZE == "large":
-            sam_cfg = "configs/sam2.1/sam2.1_hiera_l.yaml"
-            sam_checkpoint = join(baseLoc, "sam2.1_hiera_large.pt")
-        else: # base
-            sam_cfg = "configs/sam2.1/sam2.1_hiera_b+.yaml"
-            sam_checkpoint = join(baseLoc, "sam2.1_hiera_base_plus.pt")
-
-
-
+        sam_cfg = f"configs/sam2.1/sam2.1_hiera_{SAM_SIZE[0]}.yaml"
+        sam_checkpoint = join(baseLoc, sam2_models[SAM_SIZE])
 
 class SelectionRefinerSAM(Gimp.PlugIn):
 
