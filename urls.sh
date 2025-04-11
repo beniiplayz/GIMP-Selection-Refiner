@@ -1,5 +1,5 @@
-SELECTION_REFINER="https://raw.githubusercontent.com/manu12121999/GIMP-Selection-Refiner/main/selection_refiner.py"
-SAM_INFERENCE="https://raw.githubusercontent.com/manu12121999/GIMP-Selection-Refiner/main/sam_inference.py"
+SELECTION_REFINER="https://raw.githubusercontent.com/beniiplayz/GIMP-Selection-Refiner/main/selection_refiner.py"
+SAM_INFERENCE="https://raw.githubusercontent.com/beniiplayz/GIMP-Selection-Refiner/main/sam_inference.py"
 TORCH_INDEX_URL="https://download.pytorch.org/whl/cpu"
 PREFIXED_SAM_V1="git+https://github.com/facebookresearch/segment-anything.git"
 SAM_V1_BASE="https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"
