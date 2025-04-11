@@ -67,6 +67,13 @@ if current_platform != "windows":
         sam_cfg = f"configs/sam2.1/sam2.1_hiera_{SAM_SIZE[0]}.yaml"
         sam_checkpoint = join(baseLoc, sam2_models[SAM_SIZE])
 
+    with open(join(baseLoc, "sam_checkpoint.txt"), "w") as f:
+        f.write(f"SAM Version: {SAM_VERSION}\n")
+        f.write(f"Model Size: {SAM_SIZE}\n")
+        f.write(f"Checkpoint Path: {sam_checkpoint}\n")
+        if SAM_VERSION == 2:
+            f.write(f"Config Path: {sam_cfg}\n")
+
 class SelectionRefinerSAM(Gimp.PlugIn):
 
     ## GimpPlugIn virtual methods ##
