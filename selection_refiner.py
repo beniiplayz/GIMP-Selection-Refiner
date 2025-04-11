@@ -35,7 +35,7 @@ if current_platform != "windows":
     from PIL import Image
 
     SAM_VERSION = 2
-    SAM_SIZE = "base"
+    SAM_SIZE = "large" # i don't know why is this hardcoded???
 
     if SAM_VERSION == 1:
         from segment_anything import SamPredictor, sam_model_registry
